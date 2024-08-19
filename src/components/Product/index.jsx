@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Carousel from "./Carousel";
-import { IMAGE_URLS } from "./constants.js";
+import { IMAGE_URLS } from "../constants.js";
 import axios from "axios";
 import { append } from "ramda";
 import { isNotNil } from "ramda";
@@ -9,6 +9,7 @@ import productsApi from "apis/products";
 
 import { LeftArrow } from "neetoicons";
 import { useHistory, useParams } from "react-router-dom/cjs/react-router-dom";
+import Header from "components/commons/Header";
 
 const Product = () => {
 
@@ -57,15 +58,9 @@ const Product = () => {
   }
   if (isError) return <PageNotFound />;
   return (
+    <>
+    <Header title={name} />
     <div className="px-6 pb-6">
-      <LeftArrow
-          className="hover:neeto-ui-bg-gray-400 neeto-ui-rounded-full mr-6"
-          onClick={history.goBack}
-        />
-      <div>
-        <p className="py-2 text-4xl font-semibold">{name}</p>
-        <hr className="border-2 border-black" />
-      </div>
       <div className="mt-6 flex gap-4">
         <div className="w-2/5">
         {isNotNil(imageUrls) ? (
@@ -84,6 +79,7 @@ const Product = () => {
         </div>
       </div>
     </div>
+    </>
   );
 };
 
