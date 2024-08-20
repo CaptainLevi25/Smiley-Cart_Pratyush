@@ -4,12 +4,15 @@ import { IMAGE_URLS } from "../constants.js";
 import axios from "axios";
 import { append } from "ramda";
 import { isNotNil } from "ramda";
-import { Spinner } from "@bigbinary/neetoui";
+import { Button, Spinner } from "@bigbinary/neetoui";
 import productsApi from "apis/products";
 
 import { LeftArrow } from "neetoicons";
 import { useHistory, useParams } from "react-router-dom/cjs/react-router-dom";
 import Header from "components/commons/Header";
+import useSelectedQuantity from "components/hooks/useSelectedQuantity";
+import AddToCart from "components/AddToCart";
+import routes from "routes";
 
 const Product = () => {
 
@@ -18,6 +21,7 @@ const Product = () => {
 
   const [product, setProduct] = useState({});
   const { slug } = useParams();
+  const { selectedQuantity, setSelectedQuantity } = useSelectedQuantity(slug);
   const fetchProduct = async () => {
     try {
       const response = await productsApi.show(slug);
@@ -77,6 +81,16 @@ const Product = () => {
           <p>MRP: {mrp}</p>
           <p className="font-semibold">Offer price: {offerPrice}</p>
           <p className="font-semibold text-green-600">{discountPercentage} off</p>
+          <div className="flex space-x-10">
+            <AddToCart {...{ availableQuantity, slug }} />
+            <Button
+              className="bg-neutral-800 hover:bg-neutral-950"
+              label="Buy now"
+              size="large"
+              to={routes.checkout}
+              onClick={() => setSelectedQuantity(selectedQuantity || 1)}
+            />
+          </div>
         </div>
       </div>
     </div>

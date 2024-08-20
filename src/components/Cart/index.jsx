@@ -9,6 +9,8 @@ import useCartItemsStore from "stores/useCartItemsStore";
 import { shallow } from "zustand/shallow";
 import { Spinner } from "@bigbinary/neetoui";
 import ProductCard from "./ProductCard";
+import { cartTotalOf } from "components/utils";
+import PriceCard from "./PriceCard";
 
 const Cart = () => {
 const { cartItems, setSelectedQuantity } = useCartItemsStore();
@@ -45,7 +47,12 @@ const slugs = keys(cartItems);
 
   useEffect(() => {
     fetchCartProducts();
-  }, []);
+  }, [cartItems]);
+
+
+const totalMrp = cartTotalOf(products, "mrp");
+const totalOfferPrice = cartTotalOf(products, "offerPrice");
+
   if (isLoading) return <Spinner />;
   if (isEmpty(products)) {
     return (
@@ -66,6 +73,11 @@ const slugs = keys(cartItems);
             <ProductCard key={product.slug} {...product} />
           ))}
         </div>
+        {totalMrp > 0 && (
+          <div className="w-1/4">
+            <PriceCard {...{ totalMrp, totalOfferPrice }} />
+          </div>
+        )}
       </div>
     </>
   );
