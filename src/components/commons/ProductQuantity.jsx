@@ -11,8 +11,8 @@ import { useRef } from "react";
 const ProductQuantity = ({ slug, availableQuantity  }) => {
     const countInputFocus = useRef(null);
     const { selectedQuantity, setSelectedQuantity } = useSelectedQuantity(slug);
-    const isNotValidQuantity = selectedQuantity >= availableQuantity;
-  const preventNavigation = e => {
+    const parsedSelectedQuantity = parseInt(selectedQuantity) || 0;
+    const isNotValidQuantity = parsedSelectedQuantity >= availableQuantity;  const preventNavigation = e => {
     e.stopPropagation();
     e.preventDefault();
   };
@@ -39,7 +39,7 @@ const ProductQuantity = ({ slug, availableQuantity  }) => {
         style="text"
         onClick={e => {
             preventNavigation(e);
-            setSelectedQuantity(selectedQuantity - 1);
+            setSelectedQuantity(parsedSelectedQuantity - 1);
           }}
       />
        <Input
@@ -65,7 +65,7 @@ const ProductQuantity = ({ slug, availableQuantity  }) => {
           style="text"
           onClick={e => {
             preventNavigation(e);
-            setSelectedQuantity(selectedQuantity + 1);
+            setSelectedQuantity(parsedSelectedQuantity + 1);
           }}
         />
       </TooltipWrapper>
