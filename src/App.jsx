@@ -10,7 +10,8 @@ import CartItemsContext from "./contexts/CartItemsContext";
 const App = () => {
   const [cartItems, setCartItems] = useState([]);
   return (
-    <CartItemsContext.Provider value={[cartItems, setCartItems]}>
+    <>
+   
       <div className="flex space-x-2">
         <NavLink exact activeClassName="underline font-bold" to="/">
           Home
@@ -25,7 +26,8 @@ const App = () => {
         <Redirect exact from={routes.root} to={routes.products.index} />
         <Route component={PageNotFound} path="*" />
       </Switch>
-      </CartItemsContext.Provider>
+
+      </>
   );
 };
 
