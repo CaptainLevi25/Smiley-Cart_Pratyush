@@ -3,6 +3,7 @@ import { LeftArrow } from "neetoicons";
 import { Typography } from "neetoui";
 import { useHistory } from "react-router-dom";
 import { AiOutlineShoppingCart } from "react-icons/ai";
+import { keys } from "ramda";
 import CartItemsContext from "src/contexts/CartItemsContext";
 import useCartItemsStore from "stores/useCartItemsStore";
 const Header = ({ title, shouldShowBackButton = true, actionBlock }) => {
@@ -10,7 +11,9 @@ const Header = ({ title, shouldShowBackButton = true, actionBlock }) => {
  // const [cartItems] = useContext(CartItemsContext);
  // const {cartItems} = useCartItemsStore;
 
- const cartItemsCount = useCartItemsStore(store => store.cartItems.length);
+ const cartItemsCount = useCartItemsStore(
+  store => keys(store.cartItems).length
+);
   return (
     <div className="m-2">
       <div className="mx-6 mb-2 mt-6 flex items-end justify-between">

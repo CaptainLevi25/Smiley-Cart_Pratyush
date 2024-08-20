@@ -39,6 +39,7 @@ const Product = () => {
     offerPrice,
     imageUrls,
     imageUrl,
+    availableQuantity
   } = product;
 
   useEffect(() => {
