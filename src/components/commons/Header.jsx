@@ -1,11 +1,13 @@
-import React from "react";
+import React, { useContext } from "react";
 import { LeftArrow } from "neetoicons";
 import { Typography } from "neetoui";
 import { useHistory } from "react-router-dom";
 import { AiOutlineShoppingCart } from "react-icons/ai";
-const Header = ({ title, shouldShowBackButton = true, actionBlock, cartItemsCount, }) => {
+import CartItemsContext from "src/contexts/CartItemsContext";
+const Header = ({ title, shouldShowBackButton = true, actionBlock }) => {
   const history = useHistory();
-
+  const [cartItems] = useContext(CartItemsContext);
+  const cartItemsCount = cartItems.length;
   return (
     <div className="m-2">
       <div className="mx-6 mb-2 mt-6 flex items-end justify-between">

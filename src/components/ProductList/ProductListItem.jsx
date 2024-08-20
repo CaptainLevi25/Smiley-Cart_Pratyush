@@ -21,7 +21,7 @@ const ProductListItem = ({
       {name}
     </Typography>
     <Typography>${offerPrice}</Typography>
-    <AddToCart  {...{ isInCart, toggleIsInCart }}/>
+    <AddToCart {...{ slug }} />
   </Link>
 );
 
