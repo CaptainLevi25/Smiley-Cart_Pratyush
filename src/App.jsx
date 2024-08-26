@@ -8,6 +8,7 @@ import { NavLink, Redirect } from "react-router-dom/cjs/react-router-dom.min";
 import ProductList from "components/ProductList";
 import CartItemsContext from "./contexts/CartItemsContext";
 import Cart from "components/Cart";
+import Checkout from "components/Checkout";
 const App = () => {
   const [cartItems, setCartItems] = useState([]);
   return (
@@ -26,6 +27,7 @@ const App = () => {
         <Route exact component={ProductList} path={routes.products.index} />
         <Route exact component={Cart} path={routes.cart} />
         <Redirect exact from={routes.root} to={routes.products.index} />
+        <Route exact component={Checkout} path={routes.checkout} />
         <Route component={PageNotFound} path="*" />
       </Switch>
 

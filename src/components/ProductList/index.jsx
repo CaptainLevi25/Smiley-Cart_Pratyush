@@ -116,8 +116,8 @@ const ProductList = () => {
         <Pagination
           navigate={handlePageNavigation}
           count={totalProductsCount}
-          pageNo={Number(page) || DEFAULT_PAGE_INDEX}
-          pageSize={Number(pageSize) || DEFAULT_PAGE_SIZE}
+          pageNo={Number(page) || 1}
+          pageSize={Number(pageSize) || 8}
         />
       </div>
     </>
