@@ -6,22 +6,24 @@ import { append } from "ramda";
 import { isNotNil } from "ramda";
 import { Button, Spinner } from "@bigbinary/neetoui";
 import productsApi from "apis/products";
-
+import { useShowProduct } from "hooks/reactQuery/useProductsApi";
 import { LeftArrow } from "neetoicons";
 import { useHistory, useParams } from "react-router-dom/cjs/react-router-dom";
 import Header from "components/commons/Header";
 import useSelectedQuantity from "components/hooks/useSelectedQuantity";
 import AddToCart from "components/AddToCart";
 import routes from "routes";
+import withTitle from "utils/withTitle";
 
 const Product = () => {
 
   const history = useHistory();
-  const [isError, setIsError] = useState(false);
+ // const [isError, setIsError] = useState(false);
 
-  const [product, setProduct] = useState({});
+  //const [product, setProduct] = useState({});
   const { slug } = useParams();
   const { selectedQuantity, setSelectedQuantity } = useSelectedQuantity(slug);
+  const { data: product = {}, isLoading, isError } = useShowProduct(slug);
   const fetchProduct = async () => {
     try {
       const response = await productsApi.show(slug);
@@ -53,7 +55,7 @@ const Product = () => {
   console.log(product);
   const totalDiscounts = mrp - offerPrice;
   const discountPercentage = ((totalDiscounts / mrp) * 100).toFixed(1);
-  const [isLoading, setIsLoading] = useState(true);
+ // const [isLoading, setIsLoading] = useState(true);
   if (isLoading) {
     return (
       <div className="flex h-screen w-full items-center justify-center">
@@ -98,4 +100,4 @@ const Product = () => {
   );
 };
 
-export default Product;
+export default withTitle(Product, "Product");

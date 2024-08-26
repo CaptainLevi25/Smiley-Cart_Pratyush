@@ -1,9 +1,10 @@
 import React from "react";
 
 import classNames from "classnames";
-import { Typography } from "neetoui";
+import { Button, Typography } from "neetoui";
 import { gt, keys } from "ramda";
 import useCartItemsStore from "stores/useCartItemsStore";
+import routes from "routes";
 
 const PriceCard = ({ totalMrp, totalOfferPrice }) => {
   const totalDiscounts = totalMrp - totalOfferPrice;

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-
+import { Helmet } from "react-helmet";
 import { useEffect } from "react";
 
 import productsApi from "apis/products";
@@ -11,6 +11,7 @@ import { Spinner } from "@bigbinary/neetoui";
 import ProductCard from "./ProductCard";
 import { cartTotalOf } from "components/utils";
 import PriceCard from "./PriceCard";
+import withTitle from "utils/withTitle";
 
 const Cart = () => {
 const { cartItems, setSelectedQuantity } = useCartItemsStore();
@@ -57,6 +58,7 @@ const totalOfferPrice = cartTotalOf(products, "offerPrice");
   if (isEmpty(products)) {
     return (
       <>
+
         <Header title="My Cart" />
         <div className="flex h-screen items-center justify-center">
           <h1>Your cart is empty!</h1>
@@ -84,4 +86,4 @@ const totalOfferPrice = cartTotalOf(products, "offerPrice");
 
 };
 
-export default Cart;
+export default withTitle(Cart, "My Cart");

@@ -34,7 +34,7 @@ const transformResponseKeysToCamelCase = response => {
 
   export default function initializeAxios() {
     axios.defaults.baseURL =
-      "https://smile-cart-backend-staging.neetodeployapp.net/";
+      "https://smile-cart-backend-staging.neetodeployapp.com/";
     setHttpHeaders();
     requestInterceptors();
     responseInterceptors();

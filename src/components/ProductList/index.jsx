@@ -7,6 +7,7 @@ import { Input } from "neetoui";
 import { Search } from "neetoicons";
 import { without } from "ramda";
 import useDebounce from "hooks/useDebounce";
+import withTitle from "utils/withTitle";
 const ProductList = () => {
   const [cartItems, setCartItems] = useState([]);
   const [searchKey, setSearchKey] = useState("");
@@ -68,4 +69,4 @@ const ProductList = () => {
   );
 };
 
-export default ProductList;
+export default withTitle(ProductList, "Product List");
