@@ -28,14 +28,14 @@ const Product = () => {
     try {
       const response = await productsApi.show(slug);
       console.log(response);
-    setProduct(response);
+      setProduct(response);
 
 
     } catch (error) {
       console.log("An error occurred:", error);
       setIsError(true);
     } finally {
-      setIsLoading(false);
+     // setIsLoading(false);
     }
   };
   const {
@@ -49,7 +49,7 @@ const Product = () => {
   } = product;
 
   useEffect(() => {
-    fetchProduct();
+   // fetchProduct();
   }, []);
 
   console.log(product);
@@ -71,7 +71,7 @@ const Product = () => {
       <div className="mt-6 flex gap-4">
         <div className="w-2/5">
         {isNotNil(imageUrls) ? (
-          <Carousel imageUrls={append(imageUrl,imageUrls)} title={name} />
+          <Carousel />
         ) : (
           <img alt={name} className="w-48" src={imageUrl} />
         )}
@@ -84,7 +84,7 @@ const Product = () => {
           <p className="font-semibold">Offer price: {offerPrice}</p>
           <p className="font-semibold text-green-600">{discountPercentage} off</p>
           <div className="flex space-x-10">
-            <AddToCart {...{ availableQuantity, slug }} />
+            <AddToCart {...{  slug }} />
             <Button
               className="bg-neutral-800 hover:bg-neutral-950"
               label="Buy now"

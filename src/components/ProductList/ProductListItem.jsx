@@ -10,8 +10,7 @@ const ProductListItem = ({
   offerPrice,
   slug,
   isInCart,
-  toggleIsInCart,
-  availableQuantity
+  toggleIsInCart
 }) => (
   <Link
     className="neeto-ui-border-black neeto-ui-rounded-xl flex w-48 flex-col items-center justify-between border p-4"
@@ -22,7 +21,7 @@ const ProductListItem = ({
       {name}
     </Typography>
     <Typography>${offerPrice}</Typography>
-    <AddToCart {...{availableQuantity,  slug }} />
+    <AddToCart {...{slug}} />
   </Link>
 );
 

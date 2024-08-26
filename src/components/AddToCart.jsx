@@ -9,7 +9,7 @@ import { shallow } from "zustand/shallow";
 import ProductQuantity from "./commons/ProductQuantity";
 import useSelectedQuantity from "./hooks/useSelectedQuantity";
 
-const AddToCart = ({ slug, availableQuantity  }) => {
+const AddToCart = ({ slug  }) => {
   //const [cartItems, setCartItems] = useContext(CartItemsContext);
   const { selectedQuantity, setSelectedQuantity } = useSelectedQuantity(slug);
   const handleClick = e => {
@@ -22,7 +22,7 @@ const AddToCart = ({ slug, availableQuantity  }) => {
   if (isNil(selectedQuantity)) {
     return <Button label="Add to cart" size="large" onClick={handleClick} />;
   }
-  return <ProductQuantity {...{ slug, availableQuantity  }} />;
+  return <ProductQuantity {...{ slug  }} />;
 };
 
 export default AddToCart;

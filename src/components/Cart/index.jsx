@@ -7,17 +7,18 @@ import Header from "components/commons/Header";
 import { isEmpty, keys } from "ramda";
 import useCartItemsStore from "stores/useCartItemsStore";
 import { shallow } from "zustand/shallow";
-import { Spinner } from "@bigbinary/neetoui";
+import { Spinner, Toastr } from "@bigbinary/neetoui";
 import ProductCard from "./ProductCard";
 import { cartTotalOf } from "components/utils";
 import PriceCard from "./PriceCard";
 import withTitle from "utils/withTitle";
+import { useFetchCartProducts } from "hooks/reactQuery/useProductsApi";
 
 const Cart = () => {
 const { cartItems, setSelectedQuantity } = useCartItemsStore();
 const slugs = keys(cartItems);
-  const [products, setProducts] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
+ // const [products, setProducts] = useState([]);
+ // const [isLoading, setIsLoading] = useState(true);
   const fetchCartProducts = async () => {
     try {
       const responses = await Promise.all(
@@ -31,12 +32,9 @@ const slugs = keys(cartItems);
 
         setSelectedQuantity(slug, availableQuantity);
         if (availableQuantity === 0) {
-          Toastr.error(
-            `${name} is no longer available and has been removed from cart`,
-            {
-              autoClose: 2000,
-            }
-          );
+          Toastr.error(t("product.error.removedFromCart", { name }), {
+            autoClose: 2000,
+          });
         }
       });
     } catch (error) {
@@ -47,9 +45,9 @@ const slugs = keys(cartItems);
   };
 
   useEffect(() => {
-    fetchCartProducts();
+  //  fetchCartProducts();
   }, [cartItems]);
-
+  const { data: products = [], isLoading } = useFetchCartProducts(slugs);
 
 const totalMrp = cartTotalOf(products, "mrp");
 const totalOfferPrice = cartTotalOf(products, "offerPrice");
