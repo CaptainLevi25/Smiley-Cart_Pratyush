@@ -6,6 +6,7 @@ const useCartItemsStore = create(
   persist(
     set => ({
       cartItems: {},
+      clearCart: () => set({ cartItems: {} }),
       setSelectedQuantity: (slug, quantity) =>
         set(({ cartItems }) => {
           if (quantity <= 0 && isNotEmpty(quantity)) {

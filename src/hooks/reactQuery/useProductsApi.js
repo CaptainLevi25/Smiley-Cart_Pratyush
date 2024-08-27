@@ -22,7 +22,7 @@ export const useFetchProducts = params =>
 
 export const useFetchCartProducts = slugs => {
   const { cartItems, setSelectedQuantity } = useCartItemsStore();
-  const responses =  useQueries(
+  const responses = useQueries(
     slugs.map(slug => ({
       queryKey: [QUERY_KEYS.PRODUCTS, slug],
       queryFn: () => productsApi.show(slug),
@@ -31,9 +31,13 @@ export const useFetchCartProducts = slugs => {
 
         setSelectedQuantity(slug, availableQuantity);
         if (availableQuantity === 0) {
-          Toastr.error("product.error.removedFromCart", { name }, {
-            autoClose: 2000,
-          });
+          Toastr.error(
+            "product.error.removedFromCart",
+            { name },
+            {
+              autoClose: 2000,
+            }
+          );
         }
       },
     }))
@@ -42,5 +46,4 @@ export const useFetchCartProducts = slugs => {
   const isLoading = existsBy({ isLoading: true }, responses);
 
   return { data, isLoading };
-
 };

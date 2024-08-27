@@ -1,3 +1,6 @@
 export const QUERY_KEYS = {
-    PRODUCTS: "products",
-  };
+  PRODUCTS: "products",
+  CHECKOUT: "checkout",
+  COUNTRIES: "countries",
+  STATES: "states",
+};
