@@ -2,7 +2,7 @@ import axios from "axios";
 import { serializeKeysToSnakeCase } from "neetocist";
 import { keysToCamelCase } from "neetocist";
 import { evolve } from "ramda";
-
+import { Toastr } from "neetoui";
 const setHttpHeaders = () => {
     axios.defaults.headers = {
       Accept: "application/json",
@@ -22,13 +22,36 @@ const transformResponseKeysToCamelCase = response => {
       )
     );
   };
+
+  const shouldShowToastr = response =>
+    typeof response === "object" && response?.noticeCode;
+
+  const showSuccessToastr = response => {
+    if (shouldShowToastr(response.data)) Toastr.success(response.data);
+  };
+
+  const showErrorToastr = error => {
+    if (error.message === t("error.networkError")) {
+      Toastr.error(t("error.noInternetConnection"));
+    } else if (error.response?.status !== 404) {
+      Toastr.error(error);
+    }
+  };
+ 
   const responseInterceptors = () => {
 
     axios.interceptors.response.use(response => {
       transformResponseKeysToCamelCase(response);
-
+      showSuccessToastr(response);
       return response.data;
-    });
+    },
+    error => {
+      showErrorToastr(error);
+
+      return Promise.reject(error);
+    }
+
+  );
   };
 
 
